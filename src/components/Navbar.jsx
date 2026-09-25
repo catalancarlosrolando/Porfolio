@@ -2,10 +2,21 @@ import { useState, useEffect, useCallback } from 'react';
 import { Button, PillInfo } from './ui/Button';
 import { useTheme } from '../context/ThemeContext';
 import { SunIcon, MoonIcon, XMarkIcon } from './ui/Icons';
+import Link from './ui/Link';
 
 export function Navbar({ onContactClick }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [active, setActive] = useState("");
   const { isDark, toggleTheme } = useTheme();
+
+
+
+  const NAV_ITEMS = [
+    { id: 'proyectos', label: 'Proyectos' },
+    { id: 'skills', label: 'Stack Técnico' },
+    { id: 'trayectoria', label: 'Experiencia' },
+    { id: 'faq', label: 'Preguntas Frecuentes' },
+  ];
 
   // Close mobile menu on Escape key
   useEffect(() => {
@@ -44,9 +55,11 @@ export function Navbar({ onContactClick }) {
 
   const scrollToSection = useCallback((id) => {
     setMobileMenuOpen(false);
+
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      setActive(id);
     }
   }, []);
 
@@ -88,34 +101,15 @@ export function Navbar({ onContactClick }) {
 
           {/* Desktop Navigation Links */}
           <nav aria-label="Navegación principal" className="hidden md:flex items-center gap-8 shrink-0">
-            <button
-              type="button"
-              onClick={() => scrollToSection('proyectos')}
-              className="text-sm font-semibold text-foreground hover:text-accent transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-            >
-              Proyectos
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollToSection('trayectoria')}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-            >
-              Experiencia
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollToSection('skills')}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-            >
-              Stack Técnico
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollToSection('faq')}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-            >
-              Preguntas Frecuentes
-            </button>
+            {NAV_ITEMS.map((item) => (
+              <Link
+                className={active === item.id ? 'bg-secondary transition-all duration-300' : ''}
+                key={item.id}
+                label={item.label}
+                variant="desktop"
+                onClick={() => scrollToSection(item.id)}
+              />
+            ))}
           </nav>
 
           {/* Right CTA / Location & Theme Toggle */}
@@ -172,34 +166,15 @@ export function Navbar({ onContactClick }) {
             aria-label="Navegación móvil"
             className="md:hidden bg-surface/98 backdrop-blur-lg border-b border-border px-5 py-5 space-y-3.5 shadow-xl animate-hero-status"
           >
-            <button
-              type="button"
-              onClick={() => scrollToSection('proyectos')}
-              className="block w-full text-left py-2 text-sm font-semibold text-foreground hover:text-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-            >
-              Proyectos
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollToSection('trayectoria')}
-              className="block w-full text-left py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-            >
-              Experiencia
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollToSection('skills')}
-              className="block w-full text-left py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-            >
-              Stack Técnico
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollToSection('faq')}
-              className="block w-full text-left py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-            >
-              Preguntas Frecuentes
-            </button>
+            {NAV_ITEMS.map((item) => (
+              <Link
+                className={active === item.id ? 'bg-secondary' : ''}
+                key={item.id}
+                label={item.label}
+                variant="mobile"
+                onClick={() => scrollToSection(item.id)}
+              />
+            ))}
             <div className="pt-2 border-t border-border/50">
               <Button
                 variant="primary"
