@@ -11,6 +11,9 @@ import { ArrowRightIcon } from './Icons';
  * @param {React.ReactNode} props.children
  */
 export function Button({
+  href,
+  target,
+  rel,
   variant = 'primary',
   size = 'md',
   disabled = false,
@@ -19,7 +22,7 @@ export function Button({
   children,
   ...props
 }) {
-  const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-full transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none';
+  const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-full transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-accent';
 
   const sizeStyles = {
     sm: 'h-9 px-4 text-xs gap-1.5',
@@ -34,10 +37,29 @@ export function Button({
     ghost: 'bg-transparent hover:bg-surface-muted text-foreground',
   };
 
+  const combinedClasses = `${baseStyles} ${sizeStyles[size] || sizeStyles.md} ${variantStyles[variant] || variantStyles.primary} ${className}`;
+
+  if (href) {
+    const finalRel = target === '_blank' ? (rel || 'noopener noreferrer') : rel;
+    return (
+      <a
+        href={href}
+        target={target}
+        rel={finalRel}
+        className={combinedClasses}
+        {...props}
+      >
+        <span>{children}</span>
+        {showArrow && <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-1" />}
+      </a>
+    );
+  }
+
   return (
     <button
+      type={props.type || 'button'}
       disabled={disabled}
-      className={`${baseStyles} ${sizeStyles[size] || sizeStyles.md} ${variantStyles[variant] || variantStyles.primary} ${className}`}
+      className={combinedClasses}
       {...props}
     >
       <span>{children}</span>

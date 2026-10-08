@@ -3,50 +3,42 @@ import { Button, PillInfo } from './ui/Button';
 import { useTheme } from '../context/ThemeContext';
 import { SunIcon, MoonIcon, XMarkIcon } from './ui/Icons';
 import Link from './ui/Link';
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
 
 export function Navbar({ onContactClick }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [active, setActive] = useState("");
   const { isDark, toggleTheme } = useTheme();
 
-
-
   const NAV_ITEMS = [
+    { id: 'sobre-mi', label: 'Sobre Mí' },
     { id: 'proyectos', label: 'Proyectos' },
     { id: 'skills', label: 'Stack Técnico' },
     { id: 'trayectoria', label: 'Experiencia' },
     { id: 'faq', label: 'Preguntas Frecuentes' },
   ];
 
+  // Lock body scroll when mobile menu is open (shared hook with ref count)
+  useLockBodyScroll(isMobileMenuOpen);
+
   // Close mobile menu on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
-        setMobileMenuOpen(false);
+        setIsMobileMenuOpen(false);
       }
     };
-    if (mobileMenuOpen) {
+    if (isMobileMenuOpen) {
       window.addEventListener('keydown', handleKeyDown);
     }
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [mobileMenuOpen]);
-
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      const originalOverflow = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = originalOverflow;
-      };
-    }
-  }, [mobileMenuOpen]);
+  }, [isMobileMenuOpen]);
 
   // Auto-close mobile menu on desktop viewport resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
-        setMobileMenuOpen(false);
+        setIsMobileMenuOpen(false);
       }
     };
     window.addEventListener('resize', handleResize);
@@ -54,7 +46,7 @@ export function Navbar({ onContactClick }) {
   }, []);
 
   const scrollToSection = useCallback((id) => {
-    setMobileMenuOpen(false);
+    setIsMobileMenuOpen(false);
 
     const element = document.getElementById(id);
     if (element) {
@@ -64,31 +56,24 @@ export function Navbar({ onContactClick }) {
   }, []);
 
   const handleBrandClick = () => {
-    setMobileMenuOpen(false);
+    setIsMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleBrandKeyDown = (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      handleBrandClick();
-    }
   };
 
   return (
     <>
       <header
-        role="banner"
         className="sticky top-0 z-40 w-full bg-surface/90 backdrop-blur-md border-b border-border transition-colors duration-200"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
           {/* Brand */}
-          <div
-            role="button"
-            tabIndex={0}
+          <a
+            href="#top"
             aria-label="Ir al inicio de la página - Carlos R. Catalan"
-            onClick={handleBrandClick}
-            onKeyDown={handleBrandKeyDown}
+            onClick={(e) => {
+              e.preventDefault();
+              handleBrandClick();
+            }}
             className="flex items-center gap-3 cursor-pointer group select-none min-w-0 shrink focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg p-1 -m-1"
           >
             <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105">
@@ -97,19 +82,26 @@ export function Navbar({ onContactClick }) {
             <span className="text-base sm:text-lg font-extrabold text-foreground font-primary tracking-wide transition-colors group-hover:text-accent truncate">
               CARLOS R. CATALAN
             </span>
-          </div>
+          </a>
 
           {/* Desktop Navigation Links */}
-          <nav aria-label="Navegación principal" className="hidden md:flex items-center gap-8 shrink-0">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                className={active === item.id ? 'bg-secondary transition-all duration-300' : ''}
-                key={item.id}
-                label={item.label}
-                variant="desktop"
-                onClick={() => scrollToSection(item.id)}
-              />
-            ))}
+          <nav aria-label="Navegación principal" className="hidden md:flex items-center shrink-0">
+            <ul className="flex items-center gap-4 lg:gap-8 m-0 p-0 list-none">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.id}>
+                  <Link
+                    href={`#${item.id}`}
+                    className={active === item.id ? 'bg-secondary transition-all duration-300' : ''}
+                    label={item.label}
+                    variant="desktop"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(item.id);
+                    }}
+                  />
+                </li>
+              ))}
+            </ul>
           </nav>
 
           {/* Right CTA / Location & Theme Toggle */}
@@ -142,13 +134,13 @@ export function Navbar({ onContactClick }) {
             {/* Mobile Menu Button */}
             <button
               type="button"
-              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
               className="p-2 rounded-xl bg-surface-muted text-foreground border border-border md:hidden hover:border-accent transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent shrink-0"
-              aria-label={mobileMenuOpen ? 'Cerrar menú principal' : 'Abrir menú principal'}
-              aria-expanded={mobileMenuOpen}
+              aria-label={isMobileMenuOpen ? 'Cerrar menú principal' : 'Abrir menú principal'}
+              aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-navigation"
             >
-              {mobileMenuOpen ? (
+              {isMobileMenuOpen ? (
                 <XMarkIcon className="w-5 h-5 text-foreground" />
               ) : (
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -160,27 +152,34 @@ export function Navbar({ onContactClick }) {
         </div>
 
         {/* Mobile Dropdown Menu with Smooth Animation */}
-        {mobileMenuOpen && (
+        {isMobileMenuOpen && (
           <nav
             id="mobile-navigation"
             aria-label="Navegación móvil"
-            className="md:hidden bg-surface/98 backdrop-blur-lg border-b border-border px-5 py-5 space-y-3.5 shadow-xl animate-hero-status"
+            className="md:hidden bg-surface/98 backdrop-blur-lg border-b border-border px-5 py-5 shadow-xl animate-hero-status"
           >
-            {NAV_ITEMS.map((item) => (
-              <Link
-                className={active === item.id ? 'bg-secondary' : ''}
-                key={item.id}
-                label={item.label}
-                variant="mobile"
-                onClick={() => scrollToSection(item.id)}
-              />
-            ))}
-            <div className="pt-2 border-t border-border/50">
+            <ul className="space-y-2.5 m-0 p-0 list-none">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.id}>
+                  <Link
+                    href={`#${item.id}`}
+                    className={active === item.id ? 'bg-secondary' : ''}
+                    label={item.label}
+                    variant="mobile"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(item.id);
+                    }}
+                  />
+                </li>
+              ))}
+            </ul>
+            <div className="pt-3 mt-3 border-t border-border/50">
               <Button
                 variant="primary"
                 size="md"
                 onClick={() => {
-                  setMobileMenuOpen(false);
+                  setIsMobileMenuOpen(false);
                   onContactClick();
                 }}
                 aria-label="Abrir formulario de contacto"
@@ -194,9 +193,9 @@ export function Navbar({ onContactClick }) {
       </header>
 
       {/* Backdrop for closing mobile menu by clicking outside */}
-      {mobileMenuOpen && (
+      {isMobileMenuOpen && (
         <div
-          onClick={() => setMobileMenuOpen(false)}
+          onClick={() => setIsMobileMenuOpen(false)}
           className="fixed inset-0 top-20 z-30 bg-black/40 backdrop-blur-[2px] md:hidden animate-hero-bg"
           aria-hidden="true"
         />
@@ -204,4 +203,3 @@ export function Navbar({ onContactClick }) {
     </>
   );
 }
-

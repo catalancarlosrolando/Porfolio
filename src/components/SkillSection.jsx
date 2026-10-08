@@ -2,7 +2,7 @@ import { CardSkillMatrix } from './ui/CardSkill';
 import { HeroPatternSection } from './ui/HeroPatternSection';
 import { KickerBadge } from './ui/Badge';
 
-export default function SkillSection(props) {
+export default function SkillSection() {
   return (
     <>
       <section id="skills" className="relative py-10 sm:py-16 bg-surface border-b border-border overflow-hidden">

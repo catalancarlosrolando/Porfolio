@@ -20,7 +20,10 @@ export function Footer({ onContactClick }) {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => window.open('https://linkedin.com/in/carlosrcatalan', '_blank')}
+              href="https://linkedin.com/in/carlosrcatalan"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Ver perfil de LinkedIn de Carlos R. Catalan (se abre en una pestaña nueva)"
             >
               LinkedIn ➔
             </Button>

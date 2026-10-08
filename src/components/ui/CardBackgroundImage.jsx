@@ -1,5 +1,5 @@
-import { Button, PillInfo } from './Button';
-import { Badge, BadgeComboCircle } from './Badge';
+import { PillInfo } from './Button';
+import { Badge } from './Badge';
 
 /**
  * CardBackgroundImage component mapping m-card-background-image master
@@ -41,7 +41,7 @@ export function CardBackgroundImage({
 
         <div className="flex flex-wrap gap-2 pt-1">
           {badges.map((b, idx) => (
-            <Badge key={idx} variant="frontend" showDot={b.showDot}>
+            <Badge key={b.id || b.label || idx} variant="frontend" showDot={b.showDot}>
               {b.label}
             </Badge>
           ))}

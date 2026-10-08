@@ -1,6 +1,5 @@
-import { Button, PillInfo } from './Button';
-import { Badge, BadgeComboCircle } from './Badge';
-import { ArrowRightIcon, GlobeAltIcon, ShieldCheckIcon } from './Icons';
+import { Button } from './Button';
+import { Badge } from './Badge';
 import doctoradoImg from '../../assets/doctorado.png';
 
 /**
@@ -44,7 +43,7 @@ export function CardMediaTop({
           {/* Tags row */}
           <div className="flex flex-wrap gap-2">
             {tags.map((t, idx) => (
-              <Badge key={idx} variant={t.variant || 'frontend'} showDot={t.showDot}>
+              <Badge key={t.id || t.label || idx} variant={t.variant || 'frontend'} showDot={t.showDot}>
                 {t.label}
               </Badge>
             ))}
@@ -67,7 +66,11 @@ export function CardMediaTop({
           <Button
             variant="outline"
             size="sm"
-            onClick={onCodeClick || (() => window.open('https://github.com/catalancarlosrolando', '_blank'))}
+            href={onCodeClick ? undefined : 'https://github.com/catalancarlosrolando'}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onCodeClick}
+            aria-label={`Ver código en GitHub del proyecto ${title} (se abre en una pestaña nueva)`}
           >
             Código
           </Button>

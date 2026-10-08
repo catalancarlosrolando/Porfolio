@@ -9,6 +9,7 @@
  * @param {React.ReactNode} [props.children]
  */
 export default function Link({
+  href = '#',
   variant = 'desktop',
   label = '',
   onClick,
@@ -16,23 +17,21 @@ export default function Link({
   children,
   ...props
 }) {
-
   const variantStyles = {
-    desktop: 'text-sm font-semibold text-foreground hover:text-accent transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full px-3.5',
+    desktop: 'inline-flex items-center text-sm font-semibold text-foreground hover:text-accent transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full px-3.5 py-1',
     mobile: 'block w-full text-left py-2.5 px-3.5 rounded-xl text-sm transition-all duration-200 cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-accent',
-
   };
   const selectedStyles = variantStyles[variant];
 
   return (
-    <button
-      type="button"
+    <a
+      href={href}
       onClick={onClick}
       className={`${selectedStyles} ${className}`}
       {...props}
     >
       {label || children}
-    </button>
+    </a>
   );
 }
 

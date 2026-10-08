@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+developer-portfolio-design-system.pen
 
 # Editor directories and files
 .vscode/*
@@ -31,6 +32,7 @@ PRODUCT.MD
 ai-specs
 .impeccable
 .agent
+rag
 
 
 # impeccable-ignore-start

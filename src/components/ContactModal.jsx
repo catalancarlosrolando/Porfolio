@@ -11,13 +11,13 @@ export function ContactModal({ isOpen, onClose }) {
     subject: '',
     message: '',
   });
-  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitted(true);
     setTimeout(() => {
-      setSubmitted(false);
+      setIsSubmitted(false);
       onClose();
       setFormData({ name: '', email: '', subject: '', message: '' });
     }, 2000);
@@ -30,13 +30,16 @@ export function ContactModal({ isOpen, onClose }) {
       title="Contacto Técnico • Carlos R. Catalan"
       subtitle="San Juan, Argentina • Tel: 2645144094 • linkedin.com/in/carlosrcatalan. Envía tu consulta para proyectos o asesoría técnica."
     >
-      {submitted ? (
+      {isSubmitted ? (
         <Alert variant="success" title="¡Mensaje Enviado!">
           Gracias por contactarte. Te responderé a la brevedad.
         </Alert>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
           <InputGroup
+            id="contact-name"
+            name="name"
+            autoComplete="name"
             label="Tu Nombre / Empresa"
             type="text"
             placeholder="Ej. Juan Pérez / Empresa X"
@@ -46,6 +49,9 @@ export function ContactModal({ isOpen, onClose }) {
           />
 
           <InputGroup
+            id="contact-email"
+            name="email"
+            autoComplete="email"
             label="Email de Contacto"
             type="email"
             placeholder="juan@empresa.com"
@@ -55,6 +61,9 @@ export function ContactModal({ isOpen, onClose }) {
           />
 
           <TextareaGroup
+            id="contact-message"
+            name="message"
+            autoComplete="off"
             label="Mensaje o Consulta"
             placeholder="Describe el proyecto o consulta técnica..."
             rows={4}

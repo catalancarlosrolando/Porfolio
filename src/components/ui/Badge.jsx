@@ -41,7 +41,7 @@ export function BadgeComboCircle({ header = 'STACK', number = 'MERN', className 
     <div
       className={`w-20 h-20 sm:w-[84px] sm:h-[84px] rounded-full bg-surface border-2 border-accent-highlight flex flex-col items-center justify-center select-none shadow-sm ${className}`}
     >
-      <span className="text-[10px] sm:text-[11px] font-extrabold font-primary text-foreground tracking-wider leading-none">
+      <span className="text-xs font-extrabold font-primary text-foreground tracking-wider leading-none">
         {header}
       </span>
       <span className="text-base sm:text-lg font-black font-primary text-accent-highlight leading-tight mt-0.5">

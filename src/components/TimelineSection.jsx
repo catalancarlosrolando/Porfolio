@@ -13,6 +13,7 @@ const TABS = [
 
 const EXPERIENCE_ITEMS = [
   {
+    id: 'exp-doctorado-geografia',
     title: 'Desarrollador Web Full Stack (Proyecto Freelance)',
     date: '2025 – Actualidad',
     subtitle: 'Plataforma Doctorado en Geografía - FFHA (UNSJ) • Ingeniería de Software',
@@ -20,6 +21,7 @@ const EXPERIENCE_ITEMS = [
       'Liderazgo del ciclo de vida completo de la plataforma web institucional con CMS personalizado. Construcción con stack MERN + TypeScript, backend RESTful en Express/MongoDB, autenticación robusta con refresh tokens y CI/CD en Coolify.',
   },
   {
+    id: 'exp-bibliotecas-unsj',
     title: 'Desarrollador Web y Diseñador UX/UI',
     date: '2025 – Actualidad',
     subtitle: 'Blog Institucional de las Bibliotecas - UNSJ • Desarrollo Web & UX',
@@ -27,6 +29,7 @@ const EXPERIENCE_ITEMS = [
       'Desarrollo de portal web institucional en WordPress optimizado para accesibilidad y redes lentas. Programación de child theme exclusivo en HTML5/CSS3/JS vanilla con Custom Post Types para autogestión de contenidos (Expte. N° 01-3266).',
   },
   {
+    id: 'exp-docencia-unsj',
     title: 'Auxiliar Docente de 2ª Categoría',
     date: 'Actualidad (2+ años)',
     subtitle: 'Universidad Nacional de San Juan (UNSJ) • Docencia Universitaria',
@@ -34,6 +37,7 @@ const EXPERIENCE_ITEMS = [
       'Cátedra Programación Procedural: Guía académica a estudiantes en algoritmia, estructuras de datos y depuración de código. Cátedra Programación Orientada a Objetos: Prácticas en arquitectura de software, paradigmas OOP y desarrollo en Python.',
   },
   {
+    id: 'exp-redes-inet',
     title: 'Administrador de Redes y Sistemas',
     date: 'Mar 2014 – Nov 2019',
     subtitle: 'INET – Conectar Igualdad, San Juan • Infraestructura & Redes',
@@ -41,6 +45,7 @@ const EXPERIENCE_ITEMS = [
       'Administración de infraestructura de red y entornos cliente-servidor en Windows Server y Linux. Mantenimiento de Active Directory, DNS, DHCP, políticas de seguridad informática, planes de backup y soporte integral.',
   },
   {
+    id: 'exp-sumarsalud-eucs',
     title: 'Community Manager y Creador de Contenido',
     date: 'Mar 2025 – Jun 2025',
     subtitle: 'Campaña EUCS (UNSJ) – "SumarSalud 2025" • Comunicación & Métricas',
@@ -48,6 +53,7 @@ const EXPERIENCE_ITEMS = [
       'Estrategia integral de comunicación digital, diseño de identidad gráfica institucional, control de marca y análisis de rendimiento y métricas de alcance.',
   },
   {
+    id: 'exp-alas-solidarias',
     title: 'Voluntario en Comunicación Digital y Asistencia Técnica',
     date: '2007 – 2008',
     subtitle: 'ONG Alas Solidarias • Impacto Comunitario',
@@ -58,6 +64,7 @@ const EXPERIENCE_ITEMS = [
 
 const EDUCATION_ITEMS = [
   {
+    id: 'edu-tecnicatura-unsj',
     title: 'Tecnicatura en Programacion Web',
     date: 'Finalizando',
     subtitle: 'Universidad Nacional de San Juan (UNSJ) • FCEFN',
@@ -65,6 +72,7 @@ const EDUCATION_ITEMS = [
       'Formación universitaria rigurosa en algoritmia avanzada, estructuras de datos, diseño de sistemas, cálculo numérico, compiladores y metodologías de ingeniería de software.',
   },
   {
+    id: 'edu-auxiliaturas-extension',
     title: 'Auxiliaturas y Proyectos Académicos de Extensión',
     date: '2023 – Presente',
     subtitle: 'UNSJ • Cátedras de Programación',
@@ -75,6 +83,7 @@ const EDUCATION_ITEMS = [
 
 const CERTIFICATION_ITEMS = [
   {
+    id: 'cert-hacking-etico-utn',
     title: 'Experto Universitario en Hacking Ético & Ciberseguridad',
     date: '2025',
     subtitle: 'Universidad Tecnológica Nacional (UTN FRBA)',
@@ -82,6 +91,7 @@ const CERTIFICATION_ITEMS = [
       'Análisis de vulnerabilidades web (OWASP Top 10), pruebas de penetración, pentesting de redes, hardening de servidores y seguridad defensiva en infraestructuras críticas.',
   },
   {
+    id: 'cert-cisco-ccna',
     title: 'Cisco Certified Network Associate (CCNA) Curriculum',
     date: 'Certificado',
     subtitle: 'Cisco Networking Academy • INET',
@@ -89,6 +99,7 @@ const CERTIFICATION_ITEMS = [
       'Arquitectura de redes TCP/IP, enrutamiento estático y dinámico (OSPF), VLANs, switching, seguridad perimetral de red y resolución de fallas en redes de datos.',
   },
   {
+    id: 'cert-admin-servidores',
     title: 'Administración Profesional de Servidores Linux & Windows',
     date: 'Certificado',
     subtitle: 'INET / UNSJ',
@@ -99,6 +110,7 @@ const CERTIFICATION_ITEMS = [
 
 const LANGUAGE_ITEMS = [
   {
+    id: 'lang-spanish',
     title: 'Español (Lengua Materna)',
     date: 'Nativo',
     subtitle: 'Comunicación Oral y Escrita',
@@ -106,6 +118,7 @@ const LANGUAGE_ITEMS = [
       'Capacidad de redacción técnica, documentación de proyectos de ingeniería de software y oratoria para dictado de cátedras universitarias.',
   },
   {
+    id: 'lang-english',
     title: 'Inglés Técnico para Ingeniería & Software',
     date: 'Profesional',
     subtitle: 'Lectura, Escritura y Comprensión Técnica',
@@ -160,7 +173,7 @@ export function TimelineSection() {
         <div className="w-full flex flex-col items-stretch">
           {currentItems.map((item, index) => (
             <TimelineItem
-              key={index}
+              key={item.id}
               title={item.title}
               date={item.date}
               subtitle={item.subtitle}

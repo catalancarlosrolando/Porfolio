@@ -1,5 +1,5 @@
 import { GlobeAltIcon, ShieldCheckIcon } from './Icons';
-import { Badge, BadgeComboCircle } from './Badge';
+import { BadgeComboCircle } from './Badge';
 
 
 /**

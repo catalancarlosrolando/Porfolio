@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   /* Light Theme Tokens from developer-portfolio-design-system.pen */
   --background: #F9F8F5;
@@ -210,6 +212,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    scroll-behavior: auto;
+  }
+
   .animate-hero-bg,
   .animate-hero-status,
   .animate-hero-title,
@@ -219,8 +230,8 @@
   .animate-ambient-1,
   .animate-ambient-2,
   .animate-scan {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

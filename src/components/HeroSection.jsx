@@ -4,7 +4,10 @@ import { HeroPattern } from './ui/HeroPattern';
 
 export function HeroSection({ onProjectsClick, onContactClick }) {
   return (
-    <section className="relative overflow-hidden py-10 sm:py-16 md:py-20 lg:py-24 border-b border-border bg-background">
+    <section
+      aria-labelledby="hero-title"
+      className="relative overflow-hidden py-10 sm:py-16 md:py-20 lg:py-24 border-b border-border bg-background"
+    >
       {/* SVG Background Pattern  */}
       <div
         className="absolute inset-0 pointer-events-none text-foreground/10 dark:text-accent-highlight/15 animate-hero-bg transition-opacity duration-300"
@@ -23,35 +26,20 @@ export function HeroSection({ onProjectsClick, onContactClick }) {
           <PillInfo label="EXP ➔" value="UNSJ & UTN" />
         </div>
 
-        {/* Title */}
+        {/* Title — Single Semantic H1 for entire page */}
         <div className="flex flex-col gap-1 sm:gap-2 animate-hero-title">
-          {/* Desktop & Tablet Display */}
-          <div className="hidden sm:block">
-            <h1 className="text-5xl md:text-7xl lg:text-[84px] font-black font-primary text-foreground leading-[0.95] tracking-[-2.5px]">
-              CARLOS CATALAN
-            </h1>
-            <div className="flex flex-wrap items-center gap-4 lg:gap-6 mt-2">
-              <span className="text-5xl md:text-7xl lg:text-[84px] font-black font-primary text-accent-highlight leading-[0.95] tracking-[-2.5px]">
-                FULL STACK
-              </span>
-              <div className="hidden lg:block shrink-0 animate-hero-badge">
+          <h1
+            id="hero-title"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black font-primary text-foreground leading-[0.95] tracking-tight sm:tracking-tighter"
+          >
+            <span className="block">CARLOS CATALAN</span>
+            <span className="flex flex-wrap items-center gap-4 lg:gap-6 mt-1 sm:mt-2 text-3xl sm:text-5xl md:text-7xl lg:text-8xl text-accent-highlight tracking-tight sm:tracking-tighter">
+              <span>FULL STACK</span>
+              <span className="hidden lg:inline-block shrink-0 animate-hero-badge">
                 <BadgeComboCircle header="STACK" number="MERN" />
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Display */}
-          <div className="block sm:hidden space-y-1">
-            <h1 className="text-4xl font-black font-primary text-foreground leading-[0.95] tracking-[-1.5px]">
-              CARLOS
-            </h1>
-            <h1 className="text-4xl font-black font-primary text-foreground leading-[0.95] tracking-[-1.5px]">
-              CATALAN
-            </h1>
-            <div className="text-3xl font-black font-primary text-accent-highlight leading-tight tracking-[-1.2px]">
-              FULL STACK
-            </div>
-          </div>
+              </span>
+            </span>
+          </h1>
         </div>
 
         {/* Bio Box & Actions Grid (Enters smoothly: +220ms) */}
@@ -60,9 +48,6 @@ export function HeroSection({ onProjectsClick, onContactClick }) {
           <div className="lg:col-span-8 flex flex-col gap-3.5 sm:gap-4">
             <p className="text-base sm:text-lg md:text-xl font-semibold font-primary text-foreground leading-relaxed">
               Profesional multidisciplinario con sólida experiencia en desarrollo web full stack (MERN + TypeScript), diseño UX/UI, administración de servidores y seguridad informática.
-            </p>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Docente en la Universidad Nacional de San Juan (UNSJ) y Experto Universitario en Hacking Ético (UTN FRBA). Liderazgo de ciclo completo de software, desarrollo de APIs en Node/Express, esquemas en MongoDB, optimización web y gestión de infraestructura Windows/Linux.
             </p>
           </div>
 
@@ -81,7 +66,10 @@ export function HeroSection({ onProjectsClick, onContactClick }) {
               <Button
                 variant="outline"
                 size="md"
-                onClick={() => window.open('https://linkedin.com/in/carlosrcatalan', '_blank')}
+                href="https://linkedin.com/in/carlosrcatalan"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Ver perfil de LinkedIn de Carlos R. Catalan (se abre en una pestaña nueva)"
                 className="w-full sm:w-auto lg:w-full justify-center h-11"
               >
                 Ver LinkedIn
